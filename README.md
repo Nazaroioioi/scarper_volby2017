@@ -1,3 +1,5 @@
+Tady to je script pro github pro read me,
+
 # Skript pro získávání výsledků voleb z volby.cz
 
 Tento Python skript slouží k automatickému získávání (scrapování) dat o výsledcích voleb z webové stránky [volby.cz](https://www.volby.cz). Konkrétně stahuje data o obcích z daného kraje a následně podrobnosti o počtu voličů, obálek a hlasů pro jednotlivé strany v každé obci. Získaná data jsou uložena do CSV souboru.
@@ -33,9 +35,9 @@ vysledky_jihomoravsky_2017.csv je název souboru, do kterého budou data uložen
 
 ### Požadavky a instalace
 
-Než skript spustíte, ujistěte se, že máte nainstalovány všechny potřebné knihovny. Tyto knihovny jsou uvedeny v souboru `requirements.txt`.
+Než skript spustíte, ujistěte se, že máte nainstalovány všechny potřebné knihovny. Tyto knihovny jsou uvedeny v souboru requirements.txt.
 
-Pro instalaci všech závislostí otevřete terminál nebo příkazový řádek ve stejném adresáři jako váš skript a `requirements.txt` a spusťte následující příkaz:
+Pro instalaci všech závislostí otevřete terminál nebo příkazový řádek ve stejném adresáři jako váš skript a requirements.txt a spusťte následující příkaz:
 
-```bash
+bash
 pip install -r requirements.txt
