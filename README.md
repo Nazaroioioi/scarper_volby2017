@@ -1,107 +1,41 @@
-README.md
-```
-# 🗳️ Projekt 3 – Scraper volebních výsledků (PSP 2017)
+# Skript pro získávání výsledků voleb z volby.cz
 
-**Autor:** [DOPLň SVÉ JMÉNO]  
-**Email:** [DOPLň EMAIL]  
-**Discord:** [DOPLň DISCORD]
+Tento Python skript slouží k automatickému získávání (scrapování) dat o výsledcích voleb z webové stránky [volby.cz](https://www.volby.cz). Konkrétně stahuje data o obcích z daného kraje a následně podrobnosti o počtu voličů, obálek a hlasů pro jednotlivé strany v každé obci. Získaná data jsou uložena do CSV souboru.
 
-## Popis projektu
+## Co skript dělá?
 
-Tento projekt slouží ke stažení výsledků parlamentních voleb z roku 2017 v České republice z webu [volby.cz](https://www.volby.cz/).  
-Skript získá podrobné výsledky hlasování pro všechny obce ve zvoleném územním celku a výstup uloží do CSV souboru.
+1.  **Navštěvuje úvodní stránku:** Začíná na přehledové stránce pro daný kraj a volby (URL je zadána jako argument).
+2.  **Sbírá ID a názvy obcí:** Z této stránky extrahuje číselné kódy (ID) a názvy všech obcí.
+3.  **Detailní sběr dat pro každou obec:** Pro každou nalezenou obec navštíví její detailní stránku s výsledky.
+4.  **Extrahování dat:** Z detailní stránky získává:
+    * Počet voličů
+    * Počet vydaných obálek
+    * Počet platných hlasů
+    * Názvy politických stran a počet hlasů pro každou stranu.
+    * Automaticky si pamatuje všechny unikátní názvy stran, aby je mohl použít jako sloupce v CSV.
+5.  **Uložení do CSV:** Všechna získaná data jsou strukturovaně uložená do jednoho CSV souboru, jehož název je zadán jako argument.
 
----
+## Jak spustit skript
+Skript se spouští přímo z příkazové řádky a vyžaduje dva argumenty: URL stránky pro skrapování a název výstupního CSV souboru.
 
-## 📦 Instalace
+Uložte skript: Uložte kód do souboru s příponou .py (např. volby_scraper.py). Ujistěte se, že máte ve stejném adresáři i soubor requirements.txt.
 
-Nejprve si vytvoř virtuální prostředí (např. pomocí `venv`):
+Spusťte skript z terminálu: Otevřete terminál nebo příkazový řádek, přejděte do adresáře, kam jste soubor uložili, a spusťte skript následovně:
 
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/macOS
-venv\Scripts\activate     # Windows
-```
 
-Nainstaluj požadované knihovny pomocí `requirements.txt`:
+python volby_scraper.py <URL_PRO_SCRAPOVANI> <NAZEV_VÝSTUPNÍHO_SOUBORU.csv>
+Příklad spuštění:
+
+python volby_scraper.py [https://www.volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103](https://www.volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103) vysledky_jihomoravsky_2017.csv
+https://www.volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103 je URL stránky pro skrapování (v tomto případě Jihomoravský kraj, volby 2017).
+vysledky_jihomoravsky_2017.csv je název souboru, do kterého budou data uložena. Skript automaticky zajistí, že název souboru bude končit na .csv.
+
+
+### Požadavky a instalace
+
+Než skript spustíte, ujistěte se, že máte nainstalovány všechny potřebné knihovny. Tyto knihovny jsou uvedeny v souboru `requirements.txt`.
+
+Pro instalaci všech závislostí otevřete terminál nebo příkazový řádek ve stejném adresáři jako váš skript a `requirements.txt` a spusťte následující příkaz:
 
 ```bash
 pip install -r requirements.txt
-```
-
----
-
-## ▶️ Spuštění skriptu
-
-Skript se spouští ze souboru `projekt_3.py` a vyžaduje **2 argumenty**:
-
-1. URL odkazu na územní celek (např. okres Prostějov)
-2. Název výstupního CSV souboru
-
-### Ukázka:
-
-```bash
-python projekt_3.py "https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103" vysledky_prostejov.csv
-```
-
----
-
-## 📁 Výstup
-
-Výstupní CSV soubor obsahuje jeden řádek pro každou obec s následujícími údaji:
-
-- Kód obce
-- Název obce
-- Počet voličů v seznamu
-- Počet vydaných obálek
-- Počet platných hlasů
-- Hlasy pro jednotlivé politické strany
-
-Ukázka řádku výstupu:
-
-```
-503160, Bedihošť, 1436, 957, 948, ANO 2011: 368, ODS: 152, ...
-```
-
----
-
-## 📄 Obsah repozitáře
-
-- `projekt_3.py` – hlavní skript pro scraping
-- `requirements.txt` – seznam potřebných knihoven
-- `README.md` – tento soubor s dokumentací
-- `vysledky_prostejov.csv` – ukázkový výstup
-
----
-
-## 🚲 Použité knihovny
-
-- `requests`
-- `beautifulsoup4`
-```
-
----
-
-requirements.txt
-```
-requests
-beautifulsoup4
-```
-
----
-
-projekt_3.py (přidáná hlavička)
-```
-"""
-projekt_3.py: třetí projekt  
-
-author: [DOPLň SVÉ JMÉNO]  
-email: [DOPLň EMAIL]  
-discord: [DOPLň DISCORD]
-"""
-
-import requests
-from bs4 import BeautifulSoup
-import csv
-import sys
-...
